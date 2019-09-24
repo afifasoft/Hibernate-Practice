@@ -2,6 +2,9 @@ package com.cloudsoftware.association;
 
 import com.cloudsoftware.association.domain.*;
 import com.cloudsoftware.association.domain1.EmpPerson;
+import com.cloudsoftware.association.domain1.PosCustomer;
+import com.cloudsoftware.association.domain1.School;
+import com.cloudsoftware.association.domain1.SchoolDetails;
 import com.cloudsoftware.association.repository.MessageRepository;
 import com.cloudsoftware.association.repository.ProductRepository;
 import org.hibernate.Session;
@@ -14,6 +17,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import javax.persistence.PersistenceUnit;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Component
@@ -90,17 +95,57 @@ public class ApplicationSetup implements CommandLineRunner {
         User user = new User();
         user.setName("user");
 
-        EmpPerson empPerson = new EmpPerson();
-        empPerson.setEmpName("Abdul");
-        empPerson.setEmpEmailAddress("abdul.pesit@gmail.com");
 
         SessionFactory sessionFactory = emf.unwrap(SessionFactory.class);
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
+
+        {
+            EmpPerson empPerson = new EmpPerson();
+            empPerson.setEmpName("Abdul");
+            empPerson.setEmpEmailAddress("abdul.pesit@gmail.com");
+            empPerson.setEmpPassword("abdulpass");
+            empPerson.setPermanent(true);
+            empPerson.setEmpJoinDate(new GregorianCalendar(2019, 9, 24));
+            empPerson.setEmpLoginTime(new Date());
+            session.save(empPerson);
+
+        }
+        {
+            EmpPerson emp = new EmpPerson();
+            emp.setEmpName("Harish");
+            emp.setEmpEmailAddress("chanti@gmail.com");
+            emp.setEmpPassword("har123");
+            emp.setPermanent(true);
+            emp.setEmpJoinDate(new GregorianCalendar(2019, 2, 23));
+            emp.setEmpLoginTime(new Date());
+            session.save(emp);
+        }
+
+        {
+            PosCustomer posCustomer = new PosCustomer();
+            posCustomer.setCustomerName("Chanti");
+            posCustomer.setCustomerAddress("202 Washington at DC");
+            posCustomer.setCreditScore(780);
+            posCustomer.setRewardPoints(12000);
+            session.save(posCustomer);
+        }
+
+        {
+            SchoolDetails schoolDetails = new SchoolDetails();
+            schoolDetails.setPublicSchool(false);
+            schoolDetails.setSchoolAddress("101 washington DC");
+            schoolDetails.setStudentCount(230);
+
+            School school = new School();
+            school.setSchoolName("St. Anns School");
+            school.setSchoolDetails(schoolDetails);
+            session.save(school);
+        }
+
         session.save(user);
-        session.save(empPerson);
         session.getTransaction().commit();
         session.close();
 

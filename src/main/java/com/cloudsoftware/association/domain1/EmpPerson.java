@@ -1,16 +1,19 @@
 package com.cloudsoftware.association.domain1;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name = "EmployeeInfo")   // All are converted into
 public class EmpPerson {
 
     @Id
-    @GeneratedValue
-
+    //@TableGenerator(name="empid", table="emppktb", pkColumnName = "empkey", pkColumnValue="empvalue", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int empId;
 
 
@@ -32,59 +35,5 @@ public class EmpPerson {
     @Temporal(TemporalType.TIMESTAMP)
     private Date empLoginTime;      // coming to office - timing
 
-    public String getEmpPassword() {
-        return empPassword;
-    }
 
-    public void setEmpPassword(String empPassword) {
-        this.empPassword = empPassword;
-    }
-
-    public String getEmpEmailAddress() {
-        return empEmailAddress;
-    }
-
-    public void setEmpEmailAddress(String empEmailAddress) {
-        this.empEmailAddress = empEmailAddress;
-    }
-
-    public boolean isPermanent() {
-        return isPermanent;
-    }
-
-    public void setPermanent(boolean permanent) {
-        isPermanent = permanent;
-    }
-
-    public Calendar getEmpJoinDate() {
-        return empJoinDate;
-    }
-
-    public void setEmpJoinDate(Calendar empJoinDate) {
-        this.empJoinDate = empJoinDate;
-    }
-
-    public Date getEmpLoginTime() {
-        return empLoginTime;
-    }
-
-    public void setEmpLoginTime(Date empLoginTime) {
-        this.empLoginTime = empLoginTime;
-    }
-
-    public int getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(int empId) {
-        this.empId = empId;
-    }
-
-    public String getEmpName() {
-        return empName;
-    }
-
-    public void setEmpName(String empName) {
-        this.empName = empName;
-    }
 }
