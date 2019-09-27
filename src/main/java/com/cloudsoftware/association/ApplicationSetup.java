@@ -1,10 +1,8 @@
 package com.cloudsoftware.association;
 
 import com.cloudsoftware.association.domain.*;
-import com.cloudsoftware.association.domain1.EmpPerson;
-import com.cloudsoftware.association.domain1.PosCustomer;
-import com.cloudsoftware.association.domain1.School;
-import com.cloudsoftware.association.domain1.SchoolDetails;
+import com.cloudsoftware.association.domain1.*;
+import com.cloudsoftware.association.domain1.Event;
 import com.cloudsoftware.association.repository.MessageRepository;
 import com.cloudsoftware.association.repository.ProductRepository;
 import org.hibernate.Session;
@@ -145,14 +143,126 @@ public class ApplicationSetup implements CommandLineRunner {
             session.save(school);
         }
 
+        {
+            CompoundKey compoundKey = new CompoundKey(100, 10001);
+            Accounts accounts = new Accounts();
+            accounts.setCompoundKey(compoundKey);
+            accounts.setAccountBalance(8500);
+
+
+            CompoundKey compoundKey1 = new CompoundKey(100, 20001);
+            Accounts accounts1 = new Accounts();
+            accounts1.setCompoundKey(compoundKey1);
+            accounts1.setAccountBalance(2500);
+
+            session.save(accounts);
+            session.save(accounts1);
+
+        }
+
+        {
+            Projects projects = new Projects();
+            projects.setProjectName("Hibernate Lessons");
+
+            Module module = new Module();
+            module.setProjectName("Spring Lessons");
+            module.setModuleName("AOP");
+
+            Task task = new Task();
+            task.setProjectName("Java Lessons");
+            task.setModuleName("Collections");
+            task.setTaskName("ArrayList");
+
+            session.save(projects);
+            session.save(module);
+            session.save(task);
+        }
+
+        {
+            PersonDetail personDetail = new PersonDetail();
+            personDetail.setZipCode("20815");
+            personDetail.setJob("Accountant");
+            personDetail.setIncome(67555.45);
+
+
+            Person person = new Person();
+            person.setPersonName("Alex");
+            person.setPersonDetail(personDetail);
+
+            session.save(person);
+
+
+        }
+
+        {
+            College college = new College();
+            college.setCollegeName("NewYork College");
+
+
+            Student student = new Student();
+            student.setStudentName("Alex Rod");
+
+            Student student1 = new Student();
+            student1.setStudentName("Linda Berry");
+
+            student.setCollege(college);
+            student1.setCollege(college);
+
+            session.save(college);
+            session.save(student);
+            session.save(student1);
+
+        }
+
+        {
+            Delegate delegate = new Delegate();
+            delegate.setDelegateName("Alex Rod");
+
+            Delegate delegate1 = new Delegate();
+            delegate1.setDelegateName("Linda Berry");
+
+            Delegate delegate2 = new Delegate();
+            delegate2.setDelegateName("John Doe");
+
+            Delegate delegate3 = new Delegate();
+            delegate3.setDelegateName("James Dean");
+
+            Event event = new Event();
+            event.setEventName("Java  - 101");
+
+            Event event1 = new Event();
+            event1.setEventName("C++ - 101");
+
+            Event event2 = new Event();
+            event2.setEventName("Math - 101");
+
+            event.getDelegates().add(delegate);
+            event.getDelegates().add(delegate1);
+            event.getDelegates().add(delegate2);
+
+            event1.getDelegates().add(delegate1);
+            event1.getDelegates().add(delegate2);
+
+            event2.getDelegates().add(delegate3);
+
+            session.save(event);
+            session.save(event1);
+            session.save(event2);
+
+            session.save(delegate);
+            session.save(delegate1);
+            session.save(delegate2);
+            session.save(delegate3);
+
+
+
+        }
+
+
+
         session.save(user);
         session.getTransaction().commit();
         session.close();
-
-
-
-
-
 
     }
 }
