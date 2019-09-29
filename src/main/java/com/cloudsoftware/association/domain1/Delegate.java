@@ -10,14 +10,15 @@ import java.util.List;
 public class Delegate {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name ="delegate_Id")
     private int delegateId;
     private String delegateName;
 
     @ManyToMany
     @JoinTable(name = "JOIN_DELEGATE_EVENT",
-        joinColumns = {@JoinColumn(name = "delegateId")},
-            inverseJoinColumns = {@JoinColumn(name = "eventId")}
+        joinColumns = {@JoinColumn(name = "delegate_Id")},
+            inverseJoinColumns = {@JoinColumn(name = "event_id")}
     )
     private List<Event> events = new ArrayList<Event>();
 

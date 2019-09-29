@@ -3,6 +3,7 @@ package com.cloudsoftware.association;
 import com.cloudsoftware.association.domain.*;
 import com.cloudsoftware.association.domain1.*;
 import com.cloudsoftware.association.domain1.Event;
+import com.cloudsoftware.association.domainbrain.UserDetails;
 import com.cloudsoftware.association.repository.MessageRepository;
 import com.cloudsoftware.association.repository.ProductRepository;
 import org.hibernate.Session;
@@ -255,6 +256,14 @@ public class ApplicationSetup implements CommandLineRunner {
             session.save(delegate3);
 
 
+
+        }
+
+        {
+            UserDetails userDetails = new UserDetails();
+            userDetails.setUserName("Abdul");
+
+            session.save(userDetails);
 
         }
 
